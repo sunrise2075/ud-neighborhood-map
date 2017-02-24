@@ -32,7 +32,7 @@ bower install knockout
 ```$xslt
 <script async defer type='text/javascript'
          src="https://maps.googleapis.com/maps/api/js?key=MY_GOOGLE_API_KEY&v=3&callback=initMap">
- </script>`
+ </script>
 
 ```
 
