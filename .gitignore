@@ -1,0 +1,14 @@
+
+# web storm project config files
+.idea/modules.xml
+.idea/ud-street-map.iml
+.idea/workspace.xml
+
+#project license file
+LICENSE
+
+# google map samples
+googlemap-sample/
+
+# pacjage.json
+package.json
