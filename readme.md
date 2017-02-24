@@ -31,7 +31,7 @@ bower install knockout
 
 ```$xslt
 <script async defer type='text/javascript'
-         src="https://maps.googleapis.com/maps/api/js?key=MY_GOOGLE_API_KEY&v=3&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=MY_GOOGLE_API_KEY&v=3&callback=initMap">
  </script>
 
 ```
@@ -42,7 +42,6 @@ bower install knockout
 
 ```$xslt
 <script  async defer type='text/javascript'
-          src='/bower_components/knockout/dist/knockout.debug.js'></script>
+         src='/bower_components/knockout/dist/knockout.debug.js'></script>
 
 ```
-``
