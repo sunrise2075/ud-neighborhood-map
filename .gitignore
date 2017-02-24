@@ -6,6 +6,9 @@
 #project license file
 LICENSE
 
+# bower components
+bower_components/
+
 # google map samples
 googlemap-sample/
 
