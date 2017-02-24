@@ -1,3 +1,4 @@
+# git remote set-url origin https://github.com/sunrise2075/ud-neighborhood-map.git
 
 # web storm project config files
 .idea/modules.xml
