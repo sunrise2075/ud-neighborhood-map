@@ -23,6 +23,12 @@ npm install -g bower
 bower install knockout
 `
 
+安装Bootstrap：
+
+`
+bower install bootstrap
+`
+
 ## 使用依赖
 
 ## GoogleMap API
@@ -45,3 +51,8 @@ bower install knockout
          src='/bower_components/knockout/dist/knockout.debug.js'></script>
 
 ```
+
+### Bootstrap
+
+    在index.html文件引入Bootstrap的样式、jquery和bootstrap.min.js
+

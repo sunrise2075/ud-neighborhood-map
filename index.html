@@ -1,102 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Neighborhood on GoogleMap</title>
-    <style>
-        html,
-        body {
-            font-family: Arial, sans-serif;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-        #map {
-            height: 100%;
-        }
-    </style>
+    <!-- Bootstrap -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="dist/css/bs-siderbar.css" rel="stylesheet">
 </head>
 <body>
-<div id="map">
+<div id="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <div class="container-fluid">
+            <div class="row">
 
+            </div><!-- /.row -->
+        </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4">
+                    <a href="#menu-toggle" id="menu-toggle">
+                        <span class="glyphicon glyphicon-menu-hamburger"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
 </div>
+<!-- /#wrapper -->
+
+
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
 <script>
-    var map;
-    function initMap(){
-
-        var uluru = {lat: -25.363, lng: 131.044};
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 4,
-            center: uluru
-        });
-
-        var contentString = '<div id="content">'+
-            '<div id="siteNotice">'+
-            '</div>'+
-            '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
-            '<div id="bodyContent">'+
-            '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-            'sandstone rock formation in the southern part of the '+
-            'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
-            'south west of the nearest large town, Alice Springs; 450&#160;km '+
-            '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
-            'features of the Uluru - Kata Tjuta National Park. Uluru is '+
-            'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
-            'Aboriginal people of the area. It has many springs, waterholes, '+
-            'rock caves and ancient paintings. Uluru is listed as a World '+
-            'Heritage Site.</p>'+
-            '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-            'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-            '(last visited June 22, 2009).</p>'+
-            '</div>'+
-            '</div>';
-
-        var infowindow = new google.maps.InfoWindow({
-            content: contentString
-        });
-
-        var marker = new google.maps.Marker({
-            position: uluru,
-            map: map,
-            title: 'Uluru (Ayers Rock)'
-        });
-        marker.addListener('click', function() {
-            infowindow.open(map, marker);
-        });
-
-
-        var styles = [
-            {
-                stylers: [
-                    { hue: "#00ffe6" },
-                    { saturation: -20 }
-                ]
-            },{
-                featureType: "road",
-                elementType: "geometry",
-                stylers: [
-                    { lightness: 100 },
-                    { visibility: "simplified" }
-                ]
-            },{
-                featureType: "road",
-                elementType: "labels",
-                stylers: [
-                    { visibility: "off" }
-                ]
-            }
-        ];
-
-        map.setOptions({styles: styles});
-    }
-
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
 </script>
-<script async defer type='text/javascript'
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyWxuLDi5aIxMGqATA74uLx4huY1uF4hg&v=3&callback=initMap">
-</script>
-
-`<script  async defer type='text/javascript'
-         src='/bower_components/knockout/dist/knockout.debug.js'></script>`
-
 </body>
 </html>
