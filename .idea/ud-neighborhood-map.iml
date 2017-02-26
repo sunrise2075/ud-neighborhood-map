@@ -5,9 +5,6 @@
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
       <excludeFolder url="file://$MODULE_DIR$/temp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
-      <excludeFolder url="file://$MODULE_DIR$/../ud-street-map/.tmp" />
-      <excludeFolder url="file://$MODULE_DIR$/../ud-street-map/temp" />
-      <excludeFolder url="file://$MODULE_DIR$/../ud-street-map/tmp" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
