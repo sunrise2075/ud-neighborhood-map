@@ -8,7 +8,20 @@
     <title>Neighborhood on GoogleMap</title>
     <!-- Bootstrap -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="dist/css/bs-siderbar.css" rel="stylesheet">
+    <link href="dist/css/app.min.css" rel="stylesheet">
+
+    <style>
+        .eq-height {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .eq-height > div[class*='col-'] {
+            display: flex;
+            flex-direction: column;
+        }
+
+    </style>
 </head>
 <body>
 <div id="wrapper">
@@ -24,13 +37,23 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-4">
+            <div class="row eq-height">
+                <div class="col-xs-6 col-md-4 col-lg-2">
                     <a href="#menu-toggle" id="menu-toggle">
                         <span class="glyphicon glyphicon-menu-hamburger"></span>
                     </a>
                 </div>
+                <div class="col-xs-6 col-md-8 col-lg-10">
+                    <h3 class="page-header text-center">街区地图</h3>
+                </div>
+
             </div>
+            <div class="row canvas">
+                <div class="col-lg-12">
+                    <div id="map-canvas"></div>
+                </div>
+            </div>
+
         </div>
     </div>
     <!-- /#page-content-wrapper -->
@@ -38,20 +61,25 @@
 <!-- /#wrapper -->
 
 
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="dist/js/bundle.app.min.js"></script>
+<script src="dist/js/bundle.common.min.js"></script>
+<script src="dist/js/bundle.model.min.js"></script>
+<script src="dist/js/bundle.view.min.js"></script>
+<script src="dist/js/bundle.vm.min.js"></script>
 <script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
+
+</script>
+<script async defer type='text/javascript'
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyWxuLDi5aIxMGqATA74uLx4huY1uF4hg&v=3&callback=initMap">
 </script>
 </body>
 </html>

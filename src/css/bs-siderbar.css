@@ -30,7 +30,7 @@ body {
     height: 100%;
     margin-left: -250px;
     overflow-y: auto;
-    background: #1dc9dc;
+    background: #a688dc;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -102,8 +102,8 @@ body {
 
 .glyphicon-menu-hamburger:before {
     font-size: 2em;
-    color: #1dc9dc;
-}s
+    color: #52271d;
+}
 
 @media(min-width:768px) {
     #wrapper {

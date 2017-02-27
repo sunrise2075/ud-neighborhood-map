@@ -9,6 +9,18 @@ dist    目录下的内容是经过压缩处理、适合直接发布到服务器
 
 src    开发目录
 
+### 搭建gulp工作流
+
+```
+npm install --save-dev gulp gulp-uglify jshint gulp-jshint gulp-rename gulp-concat gulp-sourcemaps
+
+npm install --save-dev gulp-plumber gulp-connect jshint-stylish gulp-csslint rimraf gulp-clean-css
+```
+### 启动项目
+```
+gulp
+```
+
 ### 安装依赖库
 
 安装bower：
