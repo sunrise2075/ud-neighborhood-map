@@ -29,7 +29,7 @@ body {
     height: 100%;
     margin-left: -250px;
     overflow-y: auto;
-    background: #b1691c;
+    background: #c59333;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -44,7 +44,7 @@ body {
     width: 100%;
     position: absolute;
     padding:0px;
-    background-color: #b17864;
+    background-color: transparent;
 }
 
 #wrapper.toggled #page-content-wrapper {
@@ -106,7 +106,7 @@ body {
 
 .glyphicon-menu-hamburger:before {
     font-size: 2em;
-    color: #305215;
+    color: #0b0b15;
 }
 
 @media(min-width:768px) {

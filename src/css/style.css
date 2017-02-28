@@ -10,18 +10,20 @@ body {
     height: 100%;
 }
 
-.eq-height {
-    display: flex;
-    flex-wrap: wrap;
+/*
+ add hamburger-shaped icon
+ on the top-left corner of the google map
+ to enable the page toggling
+*/
+.toogle-icon {
+    width: 2em;
+    background: transparent;
+    z-index: 30;
+    position: absolute;
+    left: 2em;
+    top: 5em;
 }
 
-.eq-height > div[class*='col-'] {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Align the flex-items vertically */
-    /*
-    align-items: center;
-     Optional, to align inner flex-items
-                              horizontally within the column
-    */
+.container-fluid, .row {
+    padding:0px;
 }
