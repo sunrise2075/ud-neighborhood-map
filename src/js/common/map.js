@@ -72,10 +72,10 @@ function initMap(){
 }
 
 
-$(document).ready(function(){
+$(document).ready(function(){//
     $(window).resize(function () {
         var h = $(window).height(),
-            offsetTop = 60; // Calculate the top offset
+            offsetTop = 40; // Calculate the top offset
 
         $('#map-canvas').css('height', (h - offsetTop));
     }).resize();

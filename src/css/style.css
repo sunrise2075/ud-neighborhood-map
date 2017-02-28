@@ -9,3 +9,19 @@ body {
 #map-canvas {
     height: 100%;
 }
+
+.eq-height {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.eq-height > div[class*='col-'] {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Align the flex-items vertically */
+    /*
+    align-items: center;
+     Optional, to align inner flex-items
+                              horizontally within the column
+    */
+}
