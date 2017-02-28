@@ -4,9 +4,9 @@
 /*
 * @constructor
 * @description : constructor function to build geo-location object for my Neighborhood App
-* @param title : title of the location
-* @param lat   : latitude of current location
-* @param lng   : longitude of current location
+* @param {string} title : title of the location
+* @param {long} lat   : latitude of current location
+* @param {long} lng   : longitude of current location
 * */
 function Location(title, lat, lng){
     this.title = title;
