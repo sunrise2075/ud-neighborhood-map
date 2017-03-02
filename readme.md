@@ -12,9 +12,9 @@ src    开发目录
 ### 搭建gulp工作流
 
 ```
-npm install --save-dev gulp gulp-uglify jshint gulp-jshint gulp-rename gulp-concat gulp-sourcemaps
+npm install --save-dev gulp gulp-uglify jshint gulp-jshint gulp-rename gulp-concat gulp-sourcemaps gulp-clean
 
-npm install --save-dev gulp-plumber gulp-connect jshint-stylish gulp-csslint rimraf gulp-clean-css
+npm install --save-dev gulp-plumber gulp-connect jshint-stylish gulp-csslint rimraf gulp-clean-css gulp-image
 ```
 ### 启动项目
 ```
@@ -37,9 +37,11 @@ bower install knockout
 
 安装Bootstrap：
 
-`
+```
 bower install bootstrap
-`
+
+bower install jquery-migrate
+```
 
 ## 使用依赖
 
@@ -68,3 +70,6 @@ bower install bootstrap
 
     在index.html文件引入Bootstrap的样式、jquery和bootstrap.min.js
 
+### 使用开源的JQuery搜索框
+
+    参考链接：http://thefinishedbox.com/freebies/scripts/jquery-animated-search/
