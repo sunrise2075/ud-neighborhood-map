@@ -74,4 +74,4 @@ bower install jquery-migrate
 
 ### 使用开源的JQuery搜索框
 
-    参考链接：http://thefinishedbox.com/freebies/scripts/jquery-animated-search/
+    参考链接：http://easyautocomplete.com/
