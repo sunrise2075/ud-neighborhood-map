@@ -119,7 +119,7 @@ SET GOOGLE MAP DIV HEIGHT
     padding:0px;
 }
 
-.searchbox-col {
-    margin-top: 15px;
-    margin-left: 15px;
+.searchbox-row {
+    margin-top: 2em;
+    margin-left: 1em;
 }
