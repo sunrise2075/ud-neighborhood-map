@@ -74,10 +74,9 @@ function initMap(){
 
 $(document).ready(function(){//
     $(window).resize(function () {
-        var h = $(window).height(),
-            offsetTop = 40; // Calculate the top offset
+        var h = $(window).height();
 
-        $('#map-canvas').css('height', (h - offsetTop));
+        $('#map-canvas').css('height', h);
     }).resize();
 
     $("#menu-toggle").click(function(e) {

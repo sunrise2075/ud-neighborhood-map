@@ -10,8 +10,10 @@
 * */
 function Location(title, lat, lng){
     this.title = title;
-    this.lat = lat;
-    this.lng = lng;
+    this.location = {
+        lat: lat,
+        lng:lng
+    }
 }
 
 Location.prototype.toString = function(){
