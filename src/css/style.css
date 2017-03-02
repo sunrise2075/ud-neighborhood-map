@@ -30,29 +30,6 @@ time, mark, audio, video {
     margin:-10px 0 -120px 0;
 }
 
-/*-------------
-SET GOOGLE MAP DIV HEIGHT
-
-#map-canvas {
-    height: 100%;
-}
--------------*/
-
-
-/*
- add hamburger-shaped icon
- on the top-left corner of the google map
- to enable the page toggling
-*/
-.toogle-icon {
-    width: 2em;
-    background: transparent;
-    z-index: 30;
-    position: absolute;
-    left: 2em;
-    top: -2.0em;
-}
-
 .searchbox-row {
     margin-top: 2em;
     margin-left: 1em;
