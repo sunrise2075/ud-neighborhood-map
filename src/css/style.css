@@ -50,12 +50,15 @@ SET GOOGLE MAP DIV HEIGHT
     z-index: 30;
     position: absolute;
     left: 2em;
-    top: 5em;
+    top: -2.0em;
 }
-
 
 .searchbox-row {
     margin-top: 2em;
     margin-left: 1em;
+}
+
+.container-fluid {
+    padding: 0px;
 }
 
