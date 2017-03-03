@@ -41,8 +41,6 @@ bower install knockout
 
 ```
 bower install bootstrap
-
-bower install jquery-migrate
 ```
 
 ## 使用依赖
