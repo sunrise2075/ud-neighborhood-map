@@ -4,8 +4,11 @@
 // Here's my data model
 var ViewModel = function() {
 
-    this.locations = ko.observableArray([]);
-    this.currLoc = ko.observable({});
+    var self = this;
+    //construct a knockout observable array for full locations list
+    self.fullLocList      =  ko.observableArray(rawLocations);
+    //construct a knockout observable array for filtered locations list
+    self.remainingLocList = ko.observableArray(filterdLocs);
 
 };
 

@@ -3,16 +3,19 @@
  */
 $(document).ready(function(){
     var options = {
-        url: "dist/resources/countries.json",
-
-        getValue: "name",
-
+        /*
+            I have updated the easyAutocomplete
+            jquery plugin so that it will take rawLocations
+            as its data source
+            I doesn't matter if I set url to an empty option
+         */
+        url: "",
+        getValue: "title",
         list: {
             match: {
                 enabled: true
             }
         }
     };
-
     $("#location-search").easyAutocomplete(options);
 })

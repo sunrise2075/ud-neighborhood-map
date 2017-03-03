@@ -10,7 +10,6 @@ function initMap(){
         center: uluru
     });
 
-
     var contentString = '<div id="content">'+
         '<div id="siteNotice">'+
         '</div>'+
@@ -70,17 +69,3 @@ function initMap(){
 
     map.setOptions({styles: styles});
 }
-
-
-$(document).ready(function(){//
-    $(window).resize(function () {
-        var h = $(window).height();
-
-        $('#map-canvas').css('height', h);
-    }).resize();
-
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-})
