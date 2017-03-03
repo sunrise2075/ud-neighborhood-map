@@ -5,7 +5,7 @@ $(document).ready(function(){//
     $(window).resize(function () {
         var h = $(window).height();
 
-        $('#map-canvas').css('height', h - 15);
+        $('#map-canvas').css('height', h - 120);
     }).resize();
 
     $("#menu-toggle").click(function(e) {
