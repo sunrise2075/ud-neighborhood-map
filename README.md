@@ -71,7 +71,3 @@ bower install jquery-migrate
 ### Bootstrap
 
     在index.html文件引入Bootstrap的样式、jquery和bootstrap.min.js
-
-### 使用开源的JQuery搜索框
-
-    参考链接：http://easyautocomplete.com/
