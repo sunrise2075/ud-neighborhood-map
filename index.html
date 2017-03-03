@@ -27,7 +27,6 @@
     <title>街区地图-GoogleMap</title>
     <!-- Bootstrap -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="dist/css/easy-autocomplete.min.css" rel="stylesheet" type="text/css">
     <link href="dist/css/app.min.css" rel="stylesheet">
 </head>
 <body>
@@ -36,9 +35,26 @@
     <div id="sidebar-wrapper">
         <div class="container-fluid">
             <div class="row">
-            <div  class="col-lg-8 searchbox-row">
-                <input id="location-search" />
+                <div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <h1 class="page-header">地址列表</h1>
+                </div>
             </div>
+            <div class="row">
+                <div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="input-group">
+                        <input id="location-search" class="form-control">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <ul class="list-group" data-bind="foreach :locations">
+                            <li class="list-group-item" data-bind="text: title"></li>
+                        </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -78,19 +94,19 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<script src="bower_components/jquery-migrate/jquery-migrate.min.js"></script>
-<script src="bower_components/knockout/dist/knockout.debug.js"></script>
 
-<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script async defer type='text/javascript'
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyWxuLDi5aIxMGqATA74uLx4huY1uF4hg&v=3&callback=initMap">
+</script>
+
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/knockout/dist/knockout.debug.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="dist/js/common.bundle.js"></script>
 <script src="dist/js/model.bundle.js"></script>
 <script src="dist/js/view.bundle.js"></script>
 <script src="dist/js/vm.bundle.js"></script>
 <script src="dist/js/app.bundle.js"></script>
-<script async defer type='text/javascript'
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyWxuLDi5aIxMGqATA74uLx4huY1uF4hg&v=3&callback=initMap">
-</script>
+
 </body>
 </html>

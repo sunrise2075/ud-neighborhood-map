@@ -30,12 +30,15 @@ time, mark, audio, video {
     margin:-10px 0 -120px 0;
 }
 
-.searchbox-row {
-    margin-top: 2em;
-    margin-left: 1em;
+.address-header {
+    margin: .5em 0;
 }
 
-.container-fluid {
-    padding: 0px;
+h1 {
+    color: white;
+}
+
+.input-group {
+    margin-bottom: 1em;
 }
 

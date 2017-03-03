@@ -6,9 +6,7 @@ var ViewModel = function() {
 
     var self = this;
     //construct a knockout observable array for full locations list
-    self.fullLocList      =  ko.observableArray(rawLocations);
-    //construct a knockout observable array for filtered locations list
-    self.remainingLocList = ko.observableArray(filterdLocs);
+    self.locations     =  ko.observableArray(rawLocations);
 
 };
 
