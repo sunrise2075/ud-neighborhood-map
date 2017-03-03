@@ -34,8 +34,12 @@ time, mark, audio, video {
     margin: .5em 0;
 }
 
-h1 {
+h1.page-header {
     color: white;
+}
+
+h1.top-title {
+    font-size: 2em;
 }
 
 .input-group {
