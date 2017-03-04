@@ -16,8 +16,7 @@ var ViewModel = function(markers) {
     self.locationsFiltered = ko.computed(function() {
         var filter = this.searchText();
         if (!filter) {
-            //set all markers to be visible
-
+            //set all the markers to be visible
             this.locations().forEach(function(marker){
                 marker.setVisible(true);
             });
