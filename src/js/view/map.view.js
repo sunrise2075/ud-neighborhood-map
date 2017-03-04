@@ -10,7 +10,7 @@ function initMap(){
     });
 
 
-    rawLocations.forEach(function(loc){
+    geoLocations.forEach(function(loc){
         var marker = new google.maps.Marker({
             position: loc.location,
             map: map,
