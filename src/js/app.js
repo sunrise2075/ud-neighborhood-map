@@ -16,16 +16,21 @@ var ViewModel = function(markers) {
     self.locationsFiltered = ko.computed(function() {
         var filter = this.searchText();
         if (!filter) {
+            //set all markers to be visible
+
+            this.locations().forEach(function(marker){
+                marker.setVisible(true);
+            });
             return this.locations();
         } else {
-            return ko.utils.arrayFilter(this.locations(), function(item) {
-                var title = item.title;
+            return ko.utils.arrayFilter(this.locations(), function(marker) {
+                var title = marker.title;
                 //see whether current marker should be retained on map
                 var flag = (title.indexOf(filter) > -1);
                 if(flag){
-                    item.setVisible(true);
+                    marker.setVisible(true);
                 }else{
-                    item.setVisible(false);
+                    marker.setVisible(false);
                 }
                 return flag;
             });
