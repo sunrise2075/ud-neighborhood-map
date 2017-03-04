@@ -2,7 +2,7 @@
  * Created by sunrise2075 on 2017/2/26.
  */
 // Here's my data model
-var ViewModel = function() {
+var ViewModel = function(markers) {
 
     //暂存ViewModel对象
     //cache the object of ViewModel
@@ -10,8 +10,7 @@ var ViewModel = function() {
     //bind the text input field on index.html
     self.searchText = ko.observable("");
     //construct a knockout observable array for full locations list
-    self.locations     =  ko.observableArray(geoLocations);
-
+    self.locations     =  ko.observableArray(markers);
     //filter the items with the search text
     //Ref：http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html
     self.locationsFiltered = ko.computed(function() {
@@ -21,11 +20,30 @@ var ViewModel = function() {
         } else {
             return ko.utils.arrayFilter(this.locations(), function(item) {
                 var title = item.title;
-                var flag = (title.indexOf(filter)>-1);
+                //see whether current marker should be retained on map
+                var flag = (title.indexOf(filter) > -1);
+                if(flag){
+                    item.setVisible(true);
+                }else{
+                    item.setVisible(false);
+                }
                 return flag;
             });
         }
     }, self);
+
+
+    self.dispose = function (){
+        self.locationsFiltered.dispose();
+    };
+
 };
 
-ko.applyBindings(new ViewModel()); // This makes Knockout get to work
+/*
+* I need ot initialise index.html
+* after the google map is loaded，
+* This makes Knockout get to work
+* */
+function initKoViewModel4IndexPage(markers){
+    ko.applyBindings(new ViewModel(markers));
+}

@@ -4,23 +4,11 @@
 var map;
 function initMap(){
 
-    var map = new google.maps.Map(document.getElementById('map-canvas'), {
+    map = new google.maps.Map(document.getElementById('map-canvas'), {
         zoom: 9,
         center: center.location
     });
 
-
-    geoLocations.forEach(function(loc){
-        var marker = new google.maps.Marker({
-            position: loc.location,
-            map: map,
-            title: loc.title
-        });
-        marker.addListener('click', function() {
-            map.setZoom(9);
-            map.setCenter(marker.getPosition());
-        });
-    });
 
     var styles = [
         {
@@ -44,4 +32,22 @@ function initMap(){
         }
     ];
     map.setOptions({styles: styles});
+
+    //initialize markers on the map
+    var markers = [];
+    geoLocations.forEach(function(loc){
+        var marker = new google.maps.Marker({
+            position: loc.location,
+            map: map,
+            title: loc.title
+        });
+        marker.addListener('click', function() {
+            map.setZoom(9);
+            map.setCenter(marker.getPosition());
+        });
+        markers.push(marker);
+    });
+
+    //invoke function to apply knockout bindings
+    initKoViewModel4IndexPage(markers);
 }
