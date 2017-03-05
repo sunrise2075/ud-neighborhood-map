@@ -42,8 +42,16 @@ function initMap(){
             title: loc.title
         });
         marker.addListener('click', function() {
-            map.setZoom(9);
-            map.setCenter(marker.getPosition());
+            // map.setZoom(9);
+            // map.setCenter(marker.getPosition());
+            //toggle marker animation
+            if (marker.getAnimation() !== null) {
+                marker.setAnimation(null);
+                map.setZoom(9);
+            } else {
+                map.setZoom(15);
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+            }
         });
         markers.push(marker);
     });
