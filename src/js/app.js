@@ -50,7 +50,8 @@ var ViewModel = function(markers) {
         //set value of the current map marker
         self.currentMarker(marker);
         // add animation on the marker
-        self.currentMarker().setAnimation(google.maps.Animation.BOUNCE);
+        // the marker should be dropped onto the corresponding location
+        self.currentMarker().setAnimation(google.maps.Animation.DROP);
     };
 
 };
@@ -60,6 +61,6 @@ var ViewModel = function(markers) {
 * after the google map is loaded，
 * This makes Knockout get to work
 * */
-function initKoViewModel4IndexPage(markers){
+function initKoViewModel4App(markers){
     ko.applyBindings(new ViewModel(markers));
 }
