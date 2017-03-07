@@ -73,7 +73,8 @@ function openInfoWindow(marker){
     //we needn't create info window object repeatedly
     if(!infoWindow){
         infoWindow = new google.maps.InfoWindow({
-            content: contentString
+            content: contentString,
+            maxWidth: 350
         });
     }else{
         infoWindow.setContent(contentString);

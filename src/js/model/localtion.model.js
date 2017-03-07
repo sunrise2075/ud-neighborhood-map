@@ -44,26 +44,26 @@ geoLocations.push(new Location("783国珍健康生活馆", 22.6069223601, 114.12
 //popup info window
 var windowContents = [];
 
-windowContents["罗湖火车站"] = '<div id="content">'+
-    '<div id="siteNotice">'+
-    '</div>'+
-    '<h1 id="firstHeading" class="firstHeading">罗湖火车站</h1>'+
-    '<div id="bodyContent">'+
-    '<p>我老爸是一名很优秀的厨师，他很擅长制作<b>河南老家风味</b>的各种家常饭菜。 就是用<b>黄牛后腿骨</b>熬制成的汤底， ' +
-    '再用上好的黄牛肉'+
-    'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
-    'south west of the nearest large town, Alice Springs; 450&#160;km '+
-    '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
-    'features of the Uluru - Kata Tjuta National Park. Uluru is '+
-    'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
-    'Aboriginal people of the area. It has many springs, waterholes, '+
-    'rock caves and ancient paintings. Uluru is listed as a World '+
-    'Heritage Site.</p>'+
-    '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-    'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-    '(last visited June 22, 2009).</p>'+
-    '</div>'+
-    '</div>';
+windowContents["罗湖火车站"] = '<div id="iw-container">' +
+    '<div class="iw-title">Porcelain Factory of Vista Alegre</div>' +
+    '<div class="iw-content">' +
+    '<div class="iw-subTitle">History</div>' +
+    '<img src="http://maps.marnoto.com/en/5wayscustomizeinfowindow/images/vistalegre.jpg" alt="Porcelain Factory of Vista Alegre" height="115" width="83">' +
+    '<p>Founded in 1824, the Porcelain Factory of Vista Alegre was the first industrial unit dedicated to porcelain production in Portugal. For the foundation and success of this risky industrial development was crucial the spirit of persistence of its founder, José Ferreira Pinto Basto. Leading figure in Portuguese society of the nineteenth century farm owner, daring dealer, wisely incorporated the liberal ideas of the century, having become "the first example of free enterprise" in Portugal.</p>' +
+    '<div class="iw-subTitle">Contacts</div>' +
+    '<p>VISTA ALEGRE ATLANTIS, SA<br>3830-292 Ílhavo - Portugal<br>'+
+    '<br>Phone. +351 234 320 600<br>e-mail: geral@vaa.pt<br>www: www.myvistaalegre.com</p>'+
+    '</div>' +
+    '<div class="iw-bottom-gradient"></div>' +
+    '</div>';;
+
+
+    // "<div class=\"panel panel-primary\">"
+    // + "<div class=\"panel-heading\">罗湖火车站</div>"
+    // + "<div class=\"panel-body\">"
+    // + "<p>罗湖火车站是我第一次抵达深圳的落脚点</p>"
+    // + "</div>"
+    // + "</div>";
 
 windowContents["盐田三村洛阳牛肉汤馆"] = '<div id="content">'+
     '<div id="siteNotice">'+
