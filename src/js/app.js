@@ -22,6 +22,8 @@ var ViewModel = function(markers) {
     self.markersFiltered = ko.computed(function() {
         var filter = this.searchText();
         if (!filter) {
+            // no marker is selected now
+            self.currentMarker(null);
             // zoom out to initial status on the google map
             zoomOut2InitStatus();
 
