@@ -2,6 +2,74 @@
  * Created by sunrise2075 on 2017/2/26.
  */
 var map;
+
+// Create a styles array to use with the map.
+var styles = [
+    {
+        featureType: 'water',
+        stylers: [
+            { color: '#19a0d8' }
+        ]
+    },{
+        featureType: 'administrative',
+        elementType: 'labels.text.stroke',
+        stylers: [
+            { color: '#ffffff' },
+            { weight: 6 }
+        ]
+    },{
+        featureType: 'administrative',
+        elementType: 'labels.text.fill',
+        stylers: [
+            { color: '#e85113' }
+        ]
+    },{
+        featureType: 'road.highway',
+        elementType: 'geometry.stroke',
+        stylers: [
+            { color: '#efe9e4' },
+            { lightness: -40 }
+        ]
+    },{
+        featureType: 'transit.station',
+        stylers: [
+            { weight: 9 },
+            { hue: '#e85113' }
+        ]
+    },{
+        featureType: 'road.highway',
+        elementType: 'labels.icon',
+        stylers: [
+            { visibility: 'off' }
+        ]
+    },{
+        featureType: 'water',
+        elementType: 'labels.text.stroke',
+        stylers: [
+            { lightness: 100 }
+        ]
+    },{
+        featureType: 'water',
+        elementType: 'labels.text.fill',
+        stylers: [
+            { lightness: -100 }
+        ]
+    },{
+        featureType: 'poi',
+        elementType: 'geometry',
+        stylers: [
+            { visibility: 'on' },
+            { color: '#f0e4d3' }
+        ]
+    },{
+        featureType: 'road.highway',
+        elementType: 'geometry.fill',
+        stylers: [
+            { color: '#efe9e4' },
+            { lightness: -25 }
+        ]
+    }
+];
 //cache infoWindow object as global variable
 var infoWindow = null;
 
@@ -12,27 +80,6 @@ function initMap(){
         center: center.location
     });
 
-    var styles = [
-        {
-            stylers: [
-                { hue: "#00ffe6" },
-                { saturation: -20 }
-            ]
-        },{
-            featureType: "road",
-            elementType: "geometry",
-            stylers: [
-                { lightness: 100 },
-                { visibility: "simplified" }
-            ]
-        },{
-            featureType: "road",
-            elementType: "labels",
-            stylers: [
-                { visibility: "off" }
-            ]
-        }
-    ];
     map.setOptions({styles: styles});
 
     //initialize markers on the map
@@ -108,23 +155,33 @@ function loadCoffeeShopInfo(){
     var userInfo = '&client_id=' + clientId + '&client_secret=' + clientSecret + "&v=20170308";
     var url = baseUrl + queryParams + userInfo;
 
-    $.get(url, function (result) {
-        var items = result.response.groups[0].items;
-        console.log(items);
-        for (var i in items){
-            var venue = items[i].venue;
-            // place the a marker on the map
-            var marker = new google.maps.Marker({
-                position: new google.maps.LatLng(venue.location.lat,venue.location.lng),
-                map: map,
-                title: venue.name,
-                icon: {
-                    url: "./dist/images/coffee-n-tea.png"
-                }
-            });
-
-            fourSquareMarkers.push(marker);
-        }});
+    //make ajax request to foursquare api
+    $.ajax({
+        url : url
+    //do response success handling
+    }).done(function(data, textStatus, jqXhr){
+            var items = data.response.groups[0].items;
+            console.log(items);
+            for (var i in items){
+                var venue = items[i].venue;
+                // place the a marker on the map
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(venue.location.lat,venue.location.lng),
+                    map: map,
+                    title: venue.name,
+                    icon: {
+                        url: "./dist/images/coffee-n-tea.png"
+                    }
+                });
+                fourSquareMarkers.push(marker);
+            };
+    //do response error handling
+    }).fail(function(jqXhr, textStatus, errorThrown){
+        console.log( "textStatus:" + textStatus + ", errorThrown:" +errorThrown);
+    //do ajax logging on the browser console
+    }).always (function(jqXHROrData, textStatus, jqXHROrErrorThrown) {
+        console.log( "ajax request to foursquare is completed, textStatus:" + textStatus);
+    });;
 
 }
 
