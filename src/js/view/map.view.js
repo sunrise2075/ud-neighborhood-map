@@ -56,6 +56,7 @@ function initMap(){
 
     //invoke function to apply knockout bindings
     initKoViewModel4App(markers);
+    loadCoffeeShopInfo();
 }
 
 /*
@@ -82,3 +83,50 @@ function openInfoWindow(marker){
     //open the info window on the google map
     infoWindow.open(map, marker);
 }
+
+var fourSquareMarkers = [];
+
+
+/*
+* load coffee shop information
+* by foursquare api
+*
+* */
+function loadCoffeeShopInfo(){
+    /*
+    * neighborhood-map
+     App Information
+    * */
+    var clientId = 'XBEVRWM1JGYOB2WS5LMPM35BJZFAANOTAPEEGNNHQ52BDOXV';
+    var clientSecret = 'P1XBXTSAGOKAWMGYIMHOALG1NSBPOJYVZLUAD5RSQEGJ3MN5';
+
+    /*
+    * concatenate the request url string
+    * */
+    var baseUrl = "https://api.foursquare.com/v2/venues/explore?";
+    var queryParams = "ll=22.6078382425%2C114.1336685829&section=coffee&limit=10&novelty=new";
+    var userInfo = '&client_id=' + clientId + '&client_secret=' + clientSecret + "&v=20170308";
+    var url = baseUrl + queryParams + userInfo;
+
+    $.get(url, function (result) {
+        var items = result.response.groups[0].items;
+        console.log(items);
+        for (var i in items){
+            var venue = items[i].venue;
+            // place the a marker on the map
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(venue.location.lat,venue.location.lng),
+                map: map,
+                title: venue.name,
+                icon: {
+                    url: "./dist/images/coffee-n-tea.png"
+                }
+            });
+
+            fourSquareMarkers.push(marker);
+        }});
+
+}
+
+
+
