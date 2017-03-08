@@ -42,6 +42,10 @@ h1.page-header {
     margin-bottom: 1em;
 }
 
+.map-container{
+    padding: 0px;
+}
+
 /*
 style definition for google map pop-up
 info window begin
@@ -107,4 +111,12 @@ info window begin
     background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
     background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
     background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+}
+
+.menu-tootgle {
+    position: absolute;
+    background: transparent;
+    z-index: 30;
+    top: 4em;
+    left: 5em;
 }
