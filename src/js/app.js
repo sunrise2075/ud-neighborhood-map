@@ -47,13 +47,15 @@ var ViewModel = function(markers) {
     };
 
     self.alertMarker = function(marker){
-        //set value of the current map marker
+        // set value of the current map marker
         self.currentMarker(marker);
         // add animation on the marker
         // the marker should be dropped onto the corresponding location
         self.currentMarker().setAnimation(google.maps.Animation.DROP);
-        //load coffee bar info from foursquare
+        // load coffee bar info from foursquare
         loadCoffeeShopInfo(marker);
+        // zoom in and change the center of map
+        zoomIn2Marker(marker);
     };
 
 };

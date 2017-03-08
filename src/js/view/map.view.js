@@ -1,8 +1,6 @@
 /**
  * Created by sunrise2075 on 2017/2/26.
  */
-var map;
-
 // Create a styles array to use with the map.
 var styles = [
     {
@@ -70,16 +68,22 @@ var styles = [
         ]
     }
 ];
+
+//cache google map object as global variable
+var map = null;
+
 //cache infoWindow object as global variable
 var infoWindow = null;
+
+var INIT_ZOOM_NUM = 11;
+var DETAIL_ZOOM_NUM = 12;
 
 //google map API callback function
 function initMap(){
     map = new google.maps.Map(document.getElementById('map-canvas'), {
-        zoom: 11,
+        zoom: INIT_ZOOM_NUM,
         center: center.location
     });
-
     map.setOptions({styles: styles});
 
     //initialize markers on the map
@@ -189,7 +193,16 @@ function loadCoffeeShopInfo(marker){
     }).always (function(jqXHROrData, textStatus, jqXHROrErrorThrown) {
         console.log( "ajax request to foursquare is completed, textStatus:" + textStatus);
     });;
+}
 
+/*
+* @description: zoom in and set center of the map
+* @param marker the given marker
+* @return void
+* */
+function zoomIn2Marker(marker){
+    map.setCenter(marker.getPosition());
+    map.setZoom(DETAIL_ZOOM_NUM);
 }
 
 
