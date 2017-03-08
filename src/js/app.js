@@ -22,10 +22,14 @@ var ViewModel = function(markers) {
     self.markersFiltered = ko.computed(function() {
         var filter = this.searchText();
         if (!filter) {
+            // zoom out to initial status on the google map
+            zoomOut2InitStatus();
+
             //set all the markers to be visible
             this.markers().forEach(function(marker){
                 marker.setVisible(true);
             });
+
             return this.markers();
         } else {
             return ko.utils.arrayFilter(this.markers(), function(marker) {

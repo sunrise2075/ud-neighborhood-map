@@ -76,7 +76,7 @@ var map = null;
 var infoWindow = null;
 
 var INIT_ZOOM_NUM = 11;
-var DETAIL_ZOOM_NUM = 12;
+var DETAIL_ZOOM_NUM = 14;
 
 //google map API callback function
 function initMap(){
@@ -203,6 +203,11 @@ function loadCoffeeShopInfo(marker){
 function zoomIn2Marker(marker){
     map.setCenter(marker.getPosition());
     map.setZoom(DETAIL_ZOOM_NUM);
+}
+
+function zoomOut2InitStatus(){
+    map.setCenter(center.location);
+    map.setZoom(INIT_ZOOM_NUM);
 }
 
 
