@@ -52,6 +52,8 @@ var ViewModel = function(markers) {
         // add animation on the marker
         // the marker should be dropped onto the corresponding location
         self.currentMarker().setAnimation(google.maps.Animation.DROP);
+        //load coffee bar info from foursquare
+        loadCoffeeShopInfo(marker);
     };
 
 };

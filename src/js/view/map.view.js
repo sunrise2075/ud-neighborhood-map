@@ -103,7 +103,6 @@ function initMap(){
 
     //invoke function to apply knockout bindings
     initKoViewModel4App(markers);
-    loadCoffeeShopInfo();
 }
 
 /*
@@ -131,15 +130,23 @@ function openInfoWindow(marker){
     infoWindow.open(map, marker);
 }
 
-var fourSquareMarkers = [];
+var coffeeShopMarkers = [];
 
 
 /*
-* load coffee shop information
-* by foursquare api
-*
+* @description: load coffee shop information
+*               by foursquare api
+* @param marker: the clicked marker object
+* @return void
 * */
-function loadCoffeeShopInfo(){
+function loadCoffeeShopInfo(marker){
+    //clear old markers
+    coffeeShopMarkers.forEach(function(coffeeBarMarker){
+        coffeeBarMarker.setMap(null);
+    });
+    //grant permission of recycling the old-fashioned objects to js engine
+    coffeeShopMarkers.length = 0;
+
     /*
     * neighborhood-map
      App Information
@@ -151,7 +158,7 @@ function loadCoffeeShopInfo(){
     * concatenate the request url string
     * */
     var baseUrl = "https://api.foursquare.com/v2/venues/explore?";
-    var queryParams = "ll=22.6078382425%2C114.1336685829&section=coffee&limit=10&novelty=new";
+    var queryParams = "ll="+ marker.position.lat() +"%2C"+ marker.position.lng() +"&section=coffee&limit=10&novelty=new";
     var userInfo = '&client_id=' + clientId + '&client_secret=' + clientSecret + "&v=20170308";
     var url = baseUrl + queryParams + userInfo;
 
@@ -173,7 +180,7 @@ function loadCoffeeShopInfo(){
                         url: "./dist/images/coffee-n-tea.png"
                     }
                 });
-                fourSquareMarkers.push(marker);
+                coffeeShopMarkers.push(marker);
             };
     //do response error handling
     }).fail(function(jqXhr, textStatus, errorThrown){
