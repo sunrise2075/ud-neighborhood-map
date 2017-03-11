@@ -31,7 +31,6 @@ gulp.task('connect', function() {
 
 gulp.task('scripts', function(){
     gulp.src('src/js/app.js')
-        // .pipe(clean({force: true}))
         .pipe(sourcemaps.init())
         .pipe(concat(minAppRootFileName))
         .pipe(uglify())
@@ -40,7 +39,6 @@ gulp.task('scripts', function(){
         .pipe(connect.reload());
 
     gulp.src('src/js/common/*.js')
-        // .pipe(clean({force: true}))
         .pipe(sourcemaps.init())
         .pipe(concat(minCommonFileName))
         .pipe(uglify())
@@ -48,7 +46,6 @@ gulp.task('scripts', function(){
         .pipe(gulp.dest('dist/js/'))
         .pipe(connect.reload());
     gulp.src('src/js/model/*.js')
-        // .pipe(clean({force: true}))
         .pipe(sourcemaps.init())
         .pipe(concat(minModelsFileName))
         .pipe(uglify())
@@ -56,7 +53,6 @@ gulp.task('scripts', function(){
         .pipe(gulp.dest('dist/js/'))
         .pipe(connect.reload());
     gulp.src('src/js/view/*.js')
-        // .pipe(clean({force: true}))
         .pipe(sourcemaps.init())
         .pipe(concat(minViewsFileName))
         .pipe(uglify())
@@ -64,7 +60,6 @@ gulp.task('scripts', function(){
         .pipe(gulp.dest('dist/js/'))
         .pipe(connect.reload());
     gulp.src('src/js/vm/*.js')
-        // .pipe(clean({force: true}))
         .pipe(sourcemaps.init())
         .pipe(concat(minVmFileName))
         .pipe(uglify())
@@ -75,7 +70,6 @@ gulp.task('scripts', function(){
 
 gulp.task('min-css',function(){
     gulp.src('src/css/*.css')
-        // .pipe(clean({force: true}))
         .pipe(sourcemaps.init())
         .pipe(concat("app.min.css"))
         .pipe(cleanCSS())
@@ -84,9 +78,11 @@ gulp.task('min-css',function(){
         .pipe(connect.reload());
 });
 
+/*
+*  the gulp task to optimize images
+* */
 gulp.task('optimize-image', function () {
     gulp.src('src/images/*')
-        // .pipe(clean({force: true}))
         .pipe(image({
             pngquant: true,
             optipng: false,
@@ -97,8 +93,7 @@ gulp.task('optimize-image', function () {
             gifsicle: true,
             svgo: true,
             concurrent: 10
-        })).pipe(gulp.dest('./dist/images'))
-        .pipe(connect.reload());
+        })).pipe(gulp.dest('./dist/images'));
 });
 
 // 语法检查

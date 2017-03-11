@@ -71,6 +71,8 @@ var styles = [
 
 //cache google map object as global variable
 var map = null;
+// cache my google map api key
+var MY_API_KEY = "AIzaSyAyWxuLDi5aIxMGqATA74uLx4huY1uF4hg";
 
 //cache infoWindow object as global variable
 var infoWindow = null;
@@ -116,26 +118,61 @@ function initMap(){
 * @return void
 * */
 function openInfoWindow(marker){
-    //query the window content of given marker
-    var contentString = windowContents[marker.title]
 
     //create an info window object
     //or set content on the existing info window
     //we needn't create info window object repeatedly
     if(!infoWindow){
         infoWindow = new google.maps.InfoWindow({
-            content: contentString,
+            position: marker.getPosition(),
             maxWidth: 350
         });
+        infoWindow.addListener('closeclick', function() {
+            infoWindow.marker = null;
+        });
     }else{
-        infoWindow.setContent(contentString);
+        infoWindow.marker = marker;
     }
+
+    infoWindow.setContent("");
+    infoWindow.marker = marker;
+
+    var streetViewService = new google.maps.StreetViewService();
+    var radius = 50;
+
+    // Use streetview service to get the closest streetview image within
+    // 50 meters of the markers position
+    streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
     //open the info window on the google map
     infoWindow.open(map, marker);
+
+    function getStreetView(data, status) {
+        if (status == google.maps.StreetViewStatus.OK) {
+            var nearStreetViewLocation = data.location.latLng;
+            var heading = google.maps.geometry.spherical.computeHeading(
+                nearStreetViewLocation, marker.position);
+            infowindow.setContent('<div>' + marker.title + '</div><div id="pano"></div>');
+            var panoramaOptions = {
+                position: nearStreetViewLocation,
+                pov: {
+                    heading: heading,
+                    pitch: 30
+                }
+            };
+            var panorama = new google.maps.StreetViewPanorama(
+                document.getElementById('pano'), panoramaOptions);
+        } else {
+            //when there is no streetview found ,
+            //I'd like to add my customized info window content
+            infoWindow.setContent('<div>' + marker.title + '</div>' +
+                '<div>No Street View Found</div>');
+        }
+    }
 }
 
-var coffeeShopMarkers = [];
 
+//add global array for coffee shop markers
+var coffeeShopMarkers = [];
 
 /*
 * @description: load coffee shop information
@@ -192,7 +229,7 @@ function loadCoffeeShopInfo(marker){
     //do ajax logging on the browser console
     }).always (function(jqXHROrData, textStatus, jqXHROrErrorThrown) {
         console.log( "ajax request to foursquare is completed, textStatus:" + textStatus);
-    });;
+    });
 }
 
 /*
@@ -205,10 +242,17 @@ function zoomIn2Marker(marker){
     map.setZoom(DETAIL_ZOOM_NUM);
 }
 
+/*
+ * @description: zoom out to the initial state of google map
+ * @param none
+ * @return void
+ * */
 function zoomOut2InitStatus(){
     map.setCenter(center.location);
     map.setZoom(INIT_ZOOM_NUM);
 }
+
+
 
 
 
