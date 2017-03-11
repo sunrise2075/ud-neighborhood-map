@@ -28,7 +28,7 @@ var center = new Location("罗湖火车站", 22.5316097301, 114.1171699659, "./d
 
 var geoLocations =[];
 geoLocations.push(center);
-geoLocations.push(new Location("盐田三村洛阳牛肉汤馆",22.5873974299,114.2492887069, "./dist/images/restaurants.png"));
+geoLocations.push(new Location("盐田三村洛阳牛肉汤馆",22.5873974299, 114.2492887069, "./dist/images/restaurants.png"));
 geoLocations.push(new Location("布吉木棉湾新区", 22.6078382425, 114.1336685829, "./dist/images/community.png"));
 geoLocations.push(new Location("深圳市中心书城-图书馆", 22.5465078091, 114.0571807461, "./dist/images/books-media.png"));
 geoLocations.push(new Location("宝安F518时尚创意园", 22.5679972163, 113.8638327151, "./dist/images/education.png"));

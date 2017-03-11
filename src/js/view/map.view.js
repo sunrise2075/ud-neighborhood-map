@@ -136,38 +136,55 @@ function openInfoWindow(marker){
 
     infoWindow.setContent("");
     infoWindow.marker = marker;
-
-    var streetViewService = new google.maps.StreetViewService();
-    var radius = 50;
-
-    // Use streetview service to get the closest streetview image within
-    // 50 meters of the markers position
-    streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
-    //open the info window on the google map
+    showLocationDetail(marker);
     infoWindow.open(map, marker);
 
-    function getStreetView(data, status) {
-        if (status == google.maps.StreetViewStatus.OK) {
-            var nearStreetViewLocation = data.location.latLng;
-            var heading = google.maps.geometry.spherical.computeHeading(
-                nearStreetViewLocation, marker.position);
-            infowindow.setContent('<div>' + marker.title + '</div><div id="pano"></div>');
-            var panoramaOptions = {
-                position: nearStreetViewLocation,
-                pov: {
-                    heading: heading,
-                    pitch: 30
-                }
-            };
-            var panorama = new google.maps.StreetViewPanorama(
-                document.getElementById('pano'), panoramaOptions);
-        } else {
-            //when there is no streetview found ,
-            //I'd like to add my customized info window content
-            infoWindow.setContent('<div>' + marker.title + '</div>' +
-                '<div>No Street View Found</div>');
-        }
-    }
+}
+
+
+/*
+ * @description: query detailed information
+ * for the given marker and set content for
+ * current info window
+ * @param  marker the object of marker
+ * @return void
+* */
+function showLocationDetail(marker){
+
+    var url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
+        marker.position.lat() +
+        "," +
+        marker.position.lng() +
+        "&key=" +
+        MY_API_KEY;
+
+    //make ajax request to foursquare api
+    $.ajax({
+        url : url
+        //do response success handling
+    }).done(function(data, textStatus, jqXhr){
+       console.log(data);
+       var detailString = "";
+       if(data.status === "OK"){
+            var place_id = data.results[0].place_id;
+           detailString += "<div>地址ID:" + place_id + "</div>";
+
+           var formatted_address = data.results[0].formatted_address;
+           detailString += "<div>详情:" + formatted_address + "</div>";
+
+           var geometry = data.results[0].geometry;
+           detailString += "<div>类型:" + geometry.location_type + "</div>";
+           detailString += "<div>纬度:" + geometry.location.lat + "</div>";
+           detailString += "<div>经度:" + geometry.location.lng + "</div>";
+           infoWindow.setContent(detailString);
+       }
+        //do response error handling
+    }).fail(function(jqXhr, textStatus, errorThrown){
+        console.log( "textStatus:" + textStatus + ", errorThrown:" +errorThrown);
+        //do ajax logging on the browser console
+    }).always (function(jqXHROrData, textStatus, jqXHROrErrorThrown) {
+        console.log( "ajax request to foursquare is completed, textStatus:" + textStatus);
+    });
 }
 
 
@@ -209,7 +226,6 @@ function loadCoffeeShopInfo(marker){
     //do response success handling
     }).done(function(data, textStatus, jqXhr){
             var items = data.response.groups[0].items;
-            console.log(items);
             for (var i in items){
                 var venue = items[i].venue;
                 // place the a marker on the map
