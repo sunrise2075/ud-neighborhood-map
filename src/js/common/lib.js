@@ -4,7 +4,6 @@
 $(document).ready(function(){//
     $(window).resize(function () {
         var h = $(window).height();
-
         $('#map-canvas').css('height', h );
     }).resize();
 

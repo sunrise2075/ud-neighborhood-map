@@ -72,7 +72,7 @@ var styles = [
 //cache google map object as global variable
 var map = null;
 // cache my google map api key
-var MY_API_KEY = "AIzaSyAyWxuLDi5aIxMGqATA74uLx4huY1uF4hg";
+var MY_API_KEY = "HW1hgQNz18TYRRn7BjN6BOMALz6h5G1C";
 
 //cache infoWindow object as global variable
 var infoWindow = null;
@@ -82,34 +82,47 @@ var DETAIL_ZOOM_NUM = 14;
 
 //google map API callback function
 function initMap(){
-    map = new google.maps.Map(document.getElementById('map-canvas'), {
-        zoom: INIT_ZOOM_NUM,
-        center: center.location
-    });
-    map.setOptions({styles: styles});
 
-    //initialize markers on the map
-    var markers = [];
-    geoLocations.forEach(function(loc){
-        var marker = new google.maps.Marker({
-            position: loc.location,
-            map: map,
-            title: loc.title,
-            icon: {
-                url: loc.icon
-            }
-        });
-        marker.addListener('click', function() {
-            //have the  marker bounce for a limited times
-            marker.setAnimation(4);
-            openInfoWindow(marker);
-        });
-        markers.push(marker);
-    });
+    map = new BMap.Map("map-canvas");          // 创建地图实例
+    var point = new BMap.Point(center.location.lng, center.location.lat);  // 创建点坐标
+    map.centerAndZoom(point, INIT_ZOOM_NUM);
+    map.addControl(new BMap.NavigationControl());
+    map.addControl(new BMap.NavigationControl());
+    map.addControl(new BMap.ScaleControl());
+    map.addControl(new BMap.OverviewMapControl());
+    map.addControl(new BMap.MapTypeControl());
+    map.setCurrentCity("深圳"); // 仅当设置城市信息时，MapTypeControl的切换功能才能可用
 
-    //invoke function to apply knockout bindings
-    initKoViewModel4App(markers);
+    var local = new BMap.LocalSearch(map, {
+        renderOptions:{map: map}
+    });
+    local.search("罗湖火车站");
+
+
+    // //initialize markers on the map
+    // var markers = [];
+    // geoLocations.forEach(function(loc){
+    //     var marker = new google.maps.Marker({
+    //         position: loc.location,
+    //         map: map,
+    //         title: loc.title,
+    //         icon: {
+    //             url: loc.icon
+    //         }
+    //     });
+    //     marker.addListener('click', function() {
+    //         //have the  marker bounce for a limited times
+    //         marker.setAnimation(4);
+    //         openInfoWindow(marker);
+    //     });
+    //     markers.push(marker);
+    // });
+    //
+    // //invoke function to apply knockout bindings
+    // initKoViewModel4App(markers);
 }
+
+initMap();
 
 /*
 * @description: open info window for

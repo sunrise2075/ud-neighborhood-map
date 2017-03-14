@@ -24,9 +24,9 @@ Location.prototype.toString = function(){
     return result;
 }
 
-var center = new Location("罗湖火车站", 22.5316097301, 114.1171699659, "./dist/images/train.png") ;
+var center = new Location("罗湖火车站", 22.5379600000, 114.1236110000, "./dist/images/train.png") ;
 
-var geoLocations =[];
+var geoLocations = [];
 geoLocations.push(center);
 geoLocations.push(new Location("盐田三村洛阳牛肉汤馆",22.5873974299, 114.2492887069, "./dist/images/restaurants.png"));
 geoLocations.push(new Location("布吉木棉湾新区", 22.6078382425, 114.1336685829, "./dist/images/community.png"));
