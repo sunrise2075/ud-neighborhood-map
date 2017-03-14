@@ -225,20 +225,26 @@ function loadCoffeeShopInfo(marker){
         url : url
     //do response success handling
     }).done(function(data, textStatus, jqXhr){
-            var items = data.response.groups[0].items;
-            for (var i in items){
-                var venue = items[i].venue;
+        var items = data.response.groups[0].items;
+        items.forEach(function(item){
+                var venue = item.venue;
                 // place the a marker on the map
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(venue.location.lat,venue.location.lng),
                     map: map,
                     title: venue.name,
-                    icon: {
+                    icon: {//
                         url: "./dist/images/coffee-n-tea.png"
                     }
                 });
+                marker.addListener('click', function() {
+                    //have the  marker bounce for a limited times
+                    marker.setAnimation(4);
+                    openInfoWindow(marker);
+                });
                 coffeeShopMarkers.push(marker);
-            };
+            }
+        );
     //do response error handling
     }).fail(function(jqXhr, textStatus, errorThrown){
         console.log( "textStatus:" + textStatus + ", errorThrown:" +errorThrown);
