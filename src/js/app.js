@@ -60,6 +60,11 @@ var ViewModel = function(markers) {
         // loadCoffeeShopInfo(marker);
         // zoom in and change the center of map
         zoomIn2Marker(marker);
+        //execute animation in 0.2 secs
+        setTimeout(function(){
+            // the other option for animation: BMAP_ANIMATION_BOUNCE
+            marker.setAnimation(BMAP_ANIMATION_DROP);
+        },100);
     };
 
 };

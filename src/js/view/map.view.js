@@ -124,13 +124,14 @@ function initMap(){
             loc.location.lat);
         // 创建标注对象并添加到地图
         var marker = new BMap.Marker(point, {
-            title: loc.title
+            title: loc.title,
+            search: "银行|餐馆"
         });
         marker.enableDragging();
         marker.addEventListener("click", function(e){
-            openInfoWindow(point);
+            openInfoWindow(marker);
         })
-        map.addOverlay(marker);
+        marker.setAnimation(BMAP_ANIMATION_DROP);//跳动的动画
         markers.push(marker);
         index++;
     });
@@ -148,20 +149,18 @@ initMap();
 * @param content
 * @return void
 * */
-function openInfoWindow(point, title, content){
+function openInfoWindow(marker, title, content){
     //create an info window object
     //or set content on the existing info window
     //we needn't create info window object repeatedly
-    if(!infoWindow){
-        var opts = {
-            width : 250,     // 信息窗口宽度
-            height: 100,     // 信息窗口高度
-            title : "Hello"  // 信息窗口标题
-        }
-        infoWindow = new BMap.InfoWindow("World", opts);  // 创建信息窗口对象
-
+    var opts = {
+        width : 250,     // 信息窗口宽度
+        height: 100,     // 信息窗口高度
+        title : marker.z.title  // 信息窗口标题
     }
-    map.openInfoWindow(infoWindow, point);      // 打开信息窗口
+    infoWindow = new BMap.InfoWindow("World", opts);  // 创建信息窗口对象
+
+    map.openInfoWindow(infoWindow, marker.z.point);      // 打开信息窗口
 
 
 }
