@@ -65,6 +65,8 @@ var ViewModel = function(markers) {
             // the other option for animation: BMAP_ANIMATION_BOUNCE
             marker.setAnimation(BMAP_ANIMATION_DROP);
         },100);
+
+        searchPlaces(marker);
     };
 
 };

@@ -79,14 +79,16 @@ var localSearch4Map = null;
 
 var markers = [];
 
+var nearByPlaces = [];
+
 // cache my google map api key
 var MY_API_KEY = "HW1hgQNz18TYRRn7BjN6BOMALz6h5G1C";
 
 //cache infoWindow object as global variable
 var infoWindow = null;
 
-var INIT_ZOOM_NUM = 11;
-var DETAIL_ZOOM_NUM = 14;
+var INIT_ZOOM_NUM = 12;
+var DETAIL_ZOOM_NUM = 17;
 
 //google map API callback function
 function initMap(){
@@ -106,6 +108,14 @@ function initMap(){
     map.enableScrollWheelZoom();//启动鼠标滚轮缩放地图
     map.enableKeyboard();//启动键盘操作地图
 
+
+    //在地图上追加图标
+    // var marker = new BMap.Marker(point);
+    //
+    geoLocations.forEach(function(loc){
+        addMarker(loc);
+    });
+
     // 使用地点的经度和纬度,创建点坐标
     var point = new BMap.Point(center.location.lng, center.location.lat);
     map.centerAndZoom(point, INIT_ZOOM_NUM);
@@ -113,34 +123,29 @@ function initMap(){
         map.panTo(point);
     }, 2000);
 
-    //在地图上追加图标
-    // var marker = new BMap.Marker(point);
-    // map.addOverlay(marker);
-
-    var index = 0;
-    geoLocations.forEach(function(loc){
-        // 向地图添加标注
-        var point = new BMap.Point(loc.location.lng,
-            loc.location.lat);
-        // 创建标注对象并添加到地图
-        var myIcon = new BMap.Icon(loc.icon, new BMap.Size(40, 50));
-        var marker = new BMap.Marker(point, {
-            title: loc.title,
-            icon: myIcon
-        });
-        marker.enableDragging();
-        marker.addEventListener("click", function(e){
-            openInfoWindow(marker);
-        })
-        marker.setAnimation(BMAP_ANIMATION_DROP);//跳动的动画
-        markers.push(marker);
-        index++;
-    });
-
 
 }
 
 initMap();
+
+function addMarker(loc){
+    // 向地图添加标注
+    var point = new BMap.Point(loc.location.lng,
+        loc.location.lat);
+    // 创建标注对象并添加到地图
+    var myIcon = new BMap.Icon(loc.icon, new BMap.Size(40, 50));
+    var marker = new BMap.Marker(point, {
+        title: loc.title,
+        icon: myIcon
+    });
+    marker.enableDragging();
+    marker.addEventListener("click", function(e){
+        openInfoWindow(marker);
+    })
+    // marker.setAnimation(BMAP_ANIMATION_DROP);//跳动的动画
+    map.addOverlay(marker);
+    markers.push(marker);
+}
 
 /*
 * @description: open info window for
@@ -212,73 +217,6 @@ function showLocationDetail(marker){
     });
 }
 
-
-//add global array for coffee shop markers
-var coffeeShopMarkers = [];
-
-/*
-* @description: load coffee shop information
-*               by foursquare api
-* @param marker: the clicked marker object
-* @return void
-* */
-function loadCoffeeShopInfo(marker){
-    //clear old markers
-    coffeeShopMarkers.forEach(function(coffeeBarMarker){
-        coffeeBarMarker.setMap(null);
-    });
-    //grant permission of recycling the old-fashioned objects to js engine
-    coffeeShopMarkers.length = 0;
-
-    /*
-    * neighborhood-map
-     App Information
-    * */
-    var clientId = 'XBEVRWM1JGYOB2WS5LMPM35BJZFAANOTAPEEGNNHQ52BDOXV';
-    var clientSecret = 'P1XBXTSAGOKAWMGYIMHOALG1NSBPOJYVZLUAD5RSQEGJ3MN5';
-
-    /*
-    * concatenate the request url string
-    * */
-    var baseUrl = "https://api.foursquare.com/v2/venues/explore?";
-    var queryParams = "ll="+ marker.position.lat() +"%2C"+ marker.position.lng() +"&section=coffee&limit=10&novelty=new";
-    var userInfo = '&client_id=' + clientId + '&client_secret=' + clientSecret + "&v=20170308";
-    var url = baseUrl + queryParams + userInfo;
-
-    //make ajax request to foursquare api
-    $.ajax({
-        url : url
-    //do response success handling
-    }).done(function(data, textStatus, jqXhr){
-        var items = data.response.groups[0].items;
-        items.forEach(function(item){
-                var venue = item.venue;
-                // place the a marker on the map
-                var marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(venue.location.lat,venue.location.lng),
-                    map: map,
-                    title: venue.name,
-                    icon: {//
-                        url: "./dist/images/coffee-n-tea.png"
-                    }
-                });
-                marker.addListener('click', function() {
-                    //have the  marker bounce for a limited times
-                    marker.setAnimation(4);
-                    openInfoWindow(marker);
-                });
-                coffeeShopMarkers.push(marker);
-            }
-        );
-    //do response error handling
-    }).fail(function(jqXhr, textStatus, errorThrown){
-        console.log( "textStatus:" + textStatus + ", errorThrown:" +errorThrown);
-    //do ajax logging on the browser console
-    }).always (function(jqXHROrData, textStatus, jqXHROrErrorThrown) {
-        console.log( "ajax request to foursquare is completed, textStatus:" + textStatus);
-    });
-}
-
 /*
 * @description: zoom in and set center of the map
 * @param marker the given marker
@@ -301,6 +239,49 @@ function zoomOut2InitStatus(){
 
 function searchPlaces(marker, keyWords){
 
+    var url = "http://api.map.baidu.com/place/v2/search?query=酒店$银行&scope=2&output=json&location="
+        + marker.z.point.lat
+        + ","
+        + marker.z.point.lng +
+        "&radius=2000&filter=sort_name:distance|sort_rule:1&ak="
+        + MY_API_KEY;
+
+    //make ajax request to foursquare api
+    $.ajax({
+        url : url,
+        dataType : "jsonp",
+        //do response success handling
+    }).done(function(data, textStatus, jqXhr){
+        var items = data.results;
+
+        items.forEach(function(item){
+            addMarker4NearByPlaces(item)
+        });
+        //do response error handling
+    }).fail(function(jqXhr, textStatus, errorThrown){
+        console.log( "textStatus:" + textStatus + ", errorThrown:" +errorThrown);
+        //do ajax logging on the browser console
+    }).always (function(jqXHROrData, textStatus, jqXHROrErrorThrown) {
+        console.log( " request to baidu api completed, textStatus:" + textStatus);
+    });
+}
+
+function addMarker4NearByPlaces(item){
+    // 向地图添加标注
+    var point = new BMap.Point(item.location.lng,
+        item.location.lat);
+    // 创建标注对象并添加到地图
+    // var myIcon = new BMap.Icon(loc.icon, new BMap.Size(40, 50));
+    var marker = new BMap.Marker(point, {
+        title: item.name
+    });
+    marker.enableDragging();
+    marker.addEventListener("click", function(e){
+        openInfoWindow(marker);
+    });
+    nearByPlaces.length = 0;
+    map.addOverlay(marker);
+    nearByPlaces.push(marker);
 }
 
 
