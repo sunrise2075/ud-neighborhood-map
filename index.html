@@ -53,8 +53,8 @@
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <ul class="list-group" data-bind="foreach :markersFiltered">
                             <li class="list-group-item"
-                                data-bind="text:title, event:{ click: $parent.alertMarker },
-                                      css:{ 'list-group-item active' : $parent.currentMarker() ? title === $parent.currentMarker().title : false,
+                                data-bind="text:z.title, event:{ click: $parent.alertMarker },
+                                      css:{ 'list-group-item active' : $parent.currentMarker() ? z.title === $parent.currentMarker().z.title : false,
                                             'list-group-item' : true
                                        }"></li>
                         </ul>

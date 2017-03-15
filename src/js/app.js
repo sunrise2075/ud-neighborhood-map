@@ -29,19 +29,20 @@ var ViewModel = function(markers) {
 
             //set all the markers to be visible
             this.markers().forEach(function(marker){
-                marker.setVisible(true);
+                map.addOverlay(marker);
             });
 
             return this.markers();
         } else {
             return ko.utils.arrayFilter(this.markers(), function(marker) {
-                var title = marker.title;
+                //fetch title info of marker
+                var title = marker.z.title;
                 //see whether current marker should be retained on map
                 var flag = (title.indexOf(filter) > -1);
                 if(flag){
-                    marker.setVisible(true);
+                    map.addOverlay(marker);
                 }else{
-                    marker.setVisible(false);
+                    map.removeOverlay(marker);
                 }
                 return flag;
             });
@@ -55,11 +56,8 @@ var ViewModel = function(markers) {
     self.alertMarker = function(marker){
         // set value of the current map marker
         self.currentMarker(marker);
-        // add animation on the marker
-        // the marker should be dropped onto the corresponding location
-        self.currentMarker().setAnimation(google.maps.Animation.DROP);
         // load coffee bar info from foursquare
-        loadCoffeeShopInfo(marker);
+        // loadCoffeeShopInfo(marker);
         // zoom in and change the center of map
         zoomIn2Marker(marker);
     };
@@ -71,6 +69,4 @@ var ViewModel = function(markers) {
 * after the google map is loaded，
 * This makes Knockout get to work
 * */
-function initKoViewModel4App(markers){
-    ko.applyBindings(new ViewModel(markers));
-}
+ko.applyBindings(new ViewModel(markers));

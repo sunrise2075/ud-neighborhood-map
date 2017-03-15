@@ -69,8 +69,16 @@ var styles = [
     }
 ];
 
+//current city gor BaiDu map
+var currentCity = "深圳";
+
 //cache google map object as global variable
 var map = null;
+
+var localSearch4Map = null;
+
+var markers = [];
+
 // cache my google map api key
 var MY_API_KEY = "HW1hgQNz18TYRRn7BjN6BOMALz6h5G1C";
 
@@ -83,43 +91,51 @@ var DETAIL_ZOOM_NUM = 14;
 //google map API callback function
 function initMap(){
 
-    map = new BMap.Map("map-canvas");          // 创建地图实例
-    var point = new BMap.Point(center.location.lng, center.location.lat);  // 创建点坐标
-    map.centerAndZoom(point, INIT_ZOOM_NUM);
+    map = new BMap.Map("map-canvas"); // 创建地图实例
+    //增加地图搜索功能
+    localSearch4Map = new BMap.LocalSearch(map, {
+        renderOptions:{map: map}
+    });
+    // 维地图增加控制组件
     map.addControl(new BMap.NavigationControl());
     map.addControl(new BMap.NavigationControl());
     map.addControl(new BMap.ScaleControl());
     map.addControl(new BMap.OverviewMapControl());
     map.addControl(new BMap.MapTypeControl());
-    map.setCurrentCity("深圳"); // 仅当设置城市信息时，MapTypeControl的切换功能才能可用
+    map.setCurrentCity(currentCity); // 仅当设置城市信息时，MapTypeControl的切换功能才能可用
+    map.enableScrollWheelZoom();//启动鼠标滚轮缩放地图
+    map.enableKeyboard();//启动键盘操作地图
 
-    var local = new BMap.LocalSearch(map, {
-        renderOptions:{map: map}
+    // 使用地点的经度和纬度,创建点坐标
+    var point = new BMap.Point(center.location.lng, center.location.lat);
+    map.centerAndZoom(point, INIT_ZOOM_NUM);
+    window.setTimeout(function(){
+        map.panTo(point);
+    }, 2000);
+
+    //在地图上追加图标
+    // var marker = new BMap.Marker(point);
+    // map.addOverlay(marker);
+
+    var index = 0;
+    geoLocations.forEach(function(loc){
+        // 向地图添加标注
+        var point = new BMap.Point(loc.location.lng,
+            loc.location.lat);
+        // 创建标注对象并添加到地图
+        var marker = new BMap.Marker(point, {
+            title: loc.title
+        });
+        marker.enableDragging();
+        marker.addEventListener("click", function(e){
+            openInfoWindow(point);
+        })
+        map.addOverlay(marker);
+        markers.push(marker);
+        index++;
     });
-    local.search("罗湖火车站");
 
 
-    // //initialize markers on the map
-    // var markers = [];
-    // geoLocations.forEach(function(loc){
-    //     var marker = new google.maps.Marker({
-    //         position: loc.location,
-    //         map: map,
-    //         title: loc.title,
-    //         icon: {
-    //             url: loc.icon
-    //         }
-    //     });
-    //     marker.addListener('click', function() {
-    //         //have the  marker bounce for a limited times
-    //         marker.setAnimation(4);
-    //         openInfoWindow(marker);
-    //     });
-    //     markers.push(marker);
-    // });
-    //
-    // //invoke function to apply knockout bindings
-    // initKoViewModel4App(markers);
 }
 
 initMap();
@@ -128,29 +144,25 @@ initMap();
 * @description: open info window for
 *              the given google map marker
 * @param  marker the object of marker
+* @param title
+* @param content
 * @return void
 * */
-function openInfoWindow(marker){
-
+function openInfoWindow(point, title, content){
     //create an info window object
     //or set content on the existing info window
     //we needn't create info window object repeatedly
     if(!infoWindow){
-        infoWindow = new google.maps.InfoWindow({
-            position: marker.getPosition(),
-            maxWidth: 350
-        });
-        infoWindow.addListener('closeclick', function() {
-            infoWindow.marker = null;
-        });
-    }else{
-        infoWindow.marker = marker;
-    }
+        var opts = {
+            width : 250,     // 信息窗口宽度
+            height: 100,     // 信息窗口高度
+            title : "Hello"  // 信息窗口标题
+        }
+        infoWindow = new BMap.InfoWindow("World", opts);  // 创建信息窗口对象
 
-    infoWindow.setContent("");
-    infoWindow.marker = marker;
-    showLocationDetail(marker);
-    infoWindow.open(map, marker);
+    }
+    map.openInfoWindow(infoWindow, point);      // 打开信息窗口
+
 
 }
 
@@ -273,8 +285,7 @@ function loadCoffeeShopInfo(marker){
 * @return void
 * */
 function zoomIn2Marker(marker){
-    map.setCenter(marker.getPosition());
-    map.setZoom(DETAIL_ZOOM_NUM);
+    map.centerAndZoom(marker.z.point, DETAIL_ZOOM_NUM);
 }
 
 /*
@@ -287,6 +298,10 @@ function zoomOut2InitStatus(){
     map.setZoom(INIT_ZOOM_NUM);
 }
 
+
+function searchPlaces(marker, keyWords){
+
+}
 
 
 
