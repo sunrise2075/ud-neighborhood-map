@@ -123,9 +123,10 @@ function initMap(){
         var point = new BMap.Point(loc.location.lng,
             loc.location.lat);
         // 创建标注对象并添加到地图
+        var myIcon = new BMap.Icon(loc.icon, new BMap.Size(40, 50));
         var marker = new BMap.Marker(point, {
             title: loc.title,
-            search: "银行|餐馆"
+            icon: myIcon
         });
         marker.enableDragging();
         marker.addEventListener("click", function(e){
