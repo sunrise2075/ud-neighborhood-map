@@ -239,7 +239,7 @@ function zoomOut2InitStatus(){
 
 function searchPlaces(marker, keyWords){
 
-    var url = "http://api.map.baidu.com/place/v2/search?query=酒店$银行&scope=2&output=json&location="
+    var url = "http://api.map.baidu.com/place/v2/search?query=酒店$银行$餐饮&scope=2&output=json&location="
         + marker.z.point.lat
         + ","
         + marker.z.point.lng +
@@ -252,36 +252,104 @@ function searchPlaces(marker, keyWords){
         dataType : "jsonp",
         //do response success handling
     }).done(function(data, textStatus, jqXhr){
-        var items = data.results;
 
+        var items = data.results;
+        console.log(items);
         items.forEach(function(item){
             addMarker4NearByPlaces(item)
         });
         //do response error handling
     }).fail(function(jqXhr, textStatus, errorThrown){
-        console.log( "textStatus:" + textStatus + ", errorThrown:" +errorThrown);
+        console.log( "textStatus:" + textStatus + ", errorThrown:" + errorThrown);
         //do ajax logging on the browser console
     }).always (function(jqXHROrData, textStatus, jqXHROrErrorThrown) {
-        console.log( " request to baidu api completed, textStatus:" + textStatus);
+        console.log( "request to baidu api completed, textStatus:" + textStatus);
     });
 }
 
 function addMarker4NearByPlaces(item){
     // 向地图添加标注
-    var point = new BMap.Point(item.location.lng,
-        item.location.lat);
+    var point = new BMap.Point(item.location.lng, item.location.lat);
+    var marker = null;
+    var myIcon = null;
+    var type = item.detail_info.type;
+
     // 创建标注对象并添加到地图
-    // var myIcon = new BMap.Icon(loc.icon, new BMap.Size(40, 50));
-    var marker = new BMap.Marker(point, {
-        title: item.name
-    });
+    switch(type){
+        case "hotel":
+            myIcon = new BMap.Icon("./dist/images/hotels.png", new BMap.Size(40, 50));
+            marker = new BMap.Marker(point, {
+                title: item.name,
+                icon: myIcon
+            });
+            break;
+
+        case "life":
+            myIcon = new BMap.Icon("./dist/images/home-services.png", new BMap.Size(40, 50));
+            marker = new BMap.Marker(point, {
+                title: item.name,
+                icon: myIcon
+            });
+            break;
+
+        case "cater":
+            myIcon = new BMap.Icon("./dist/images/food.png", new BMap.Size(40, 50));
+            marker = new BMap.Marker(point, {
+                title: item.name,
+                icon: myIcon
+            });
+            break;
+
+        default:
+            marker = new BMap.Marker(point, {
+                title: item.name
+            });
+    }
+
     marker.enableDragging();
     marker.addEventListener("click", function(e){
-        openInfoWindow(marker);
+        openInfoWindow2Detail(marker, item);
     });
     nearByPlaces.length = 0;
     map.addOverlay(marker);
     nearByPlaces.push(marker);
+}
+
+/*
+*
+* */
+function openInfoWindow2Detail(marker, placeInfo){
+    var detailString = "";
+    var title = placeInfo.name;
+
+    var streetId = placeInfo.street_id;
+    detailString += "<div>地址:" + streetId + "</div>";
+
+    var address = placeInfo.address;
+    detailString += "<div>地址:" + address + "</div>";
+
+    var tele = placeInfo.telephone;
+    if(tele){
+        detailString += "<div>电话:" + tele + "</div>";
+    }
+
+    var location = placeInfo.location;
+    detailString += "<div>纬度:" + location.lat + "</div>";
+    detailString += "<div>经度:" + location.lng + "</div>";
+
+    var detailInfo = placeInfo.detail_info;
+    detailString += "<div>标签:" + detailInfo.tag + "</div>";
+    detailString += "<div>类型:" + detailInfo.type + "</div>";
+    detailString += "<div>类型:<a href='" + detailInfo.detail_url +"'>详情页面</a></div>";
+
+    var opts = {
+        width : 250,     // 信息窗口宽度
+        height: 200,     // 信息窗口高度
+        title : marker.z.title  // 信息窗口标题
+    }
+    infoWindow = new BMap.InfoWindow(detailString, opts);  // 创建信息窗口对象
+
+    map.openInfoWindow(infoWindow, marker.z.point);      // 打开信息窗口
 }
 
 
